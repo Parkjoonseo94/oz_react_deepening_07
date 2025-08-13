@@ -1,4 +1,6 @@
-import './App.css';
+import { useState } from "react";
+import Clock from "./Clock";
+import "./App.css";
 
 /**
  * App 컴포넌트는 버튼을 통해 Clock 컴포넌트의 실행 상태를 제어하는 기능을 제공합니다.
@@ -17,10 +19,23 @@ import './App.css';
  * - Clock 컴포넌트: componentRunning 상태가 true일 때만 렌더링됩니다.
  */
 function App() {
+  // Clock 실행 여부 상태
+  const [componentRunning, setComponentRunning] = useState(true);
+
+  // 상태 토글 함수
+  const handleComponentToggle = () => {
+    setComponentRunning((prev) => !prev);
+  };
+  
   return (
-    <>
-      <div className="container"></div>
-    </>
+    <div className="container">
+      <button onClick={handleComponentToggle}>
+        {componentRunning ? "컴포넌트 정지" : "컴포넌트 시작"}
+      </button>
+
+      {/* 상태가 true일 때만 Clock 렌더링 */}
+      {componentRunning && <Clock />}
+    </div>
   );
 }
 
